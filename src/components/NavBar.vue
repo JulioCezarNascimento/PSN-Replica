@@ -1,12 +1,14 @@
 <template>
   <nav class="navbar">
     <div class="nav-left">
-      <span class="store-icon">🛍️ PS Store</span>
+      <span class="store-icon" @click="$emit('navigate', 'home')" style="cursor: pointer">🛍️ PS Store</span>
     </div>
     <div class="nav-center">
       <ul>
-        <li class="active">Novidades</li>
-        <li>Coleções</li>
+        <li :class="{ active: currentPage === 'home' }" @click="$emit('navigate', 'home')">Novidades</li>
+        <li :class="{ active: currentPage === 'new-game' }" @click="$emit('navigate', 'new-game')">Novo Jogo</li>
+        <li :class="{ active: currentPage === 'colecoes' }" @click="$emit('navigate', 'colecoes')">Coleções</li>
+        <li :class="{ active: currentPage === 'perfil' }" @click="$emit('navigate', 'perfil')">Meu Perfil</li>
         <li>Ofertas</li>
         <li>Assinaturas</li>
       </ul>
@@ -14,10 +16,20 @@
     <div class="nav-right">
       <span>🔍</span>
       <span>🛒</span>
-      <span class="profile-icon">👤</span>
+      <span class="profile-icon" title="Registrar / Login" @click="$emit('navigate', 'registro')">👤</span>
     </div>
   </nav>
 </template>
+
+<script setup>
+defineProps({
+  currentPage: {
+    type: String,
+    default: 'home'
+  }
+});
+defineEmits(['navigate']);
+</script>
 
 <style lang="scss" scoped>
 .navbar {
